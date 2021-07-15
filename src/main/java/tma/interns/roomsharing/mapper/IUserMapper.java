@@ -9,4 +9,5 @@ import tma.interns.roomsharing.entity.UserEntity;
 public interface IUserMapper {
     UserEntity fromCreateToEntity(UserCreateDto dto);
     UserBasicDto toBasicDto(UserEntity userEntity);
+    UserEntity fromBasicToEntity(UserBasicDto dto);
 }

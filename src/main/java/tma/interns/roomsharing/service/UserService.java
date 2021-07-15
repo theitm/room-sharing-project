@@ -39,4 +39,10 @@ public class UserService implements IUserService {
     public void delete(UUID user_id){
         userRepo.deleteById(user_id);
     }
+    public UserBasicDto updateUser(UserBasicDto dto, UUID userId) {
+        UserEntity userEntity = userMapper.fromBasicToEntity(dto);
+        userEntity.setUserId(userId);
+        UserEntity returnUser = userRepo.saveAndFlush(userEntity);
+        return userMapper.toBasicDto(returnUser);
+    }
 }

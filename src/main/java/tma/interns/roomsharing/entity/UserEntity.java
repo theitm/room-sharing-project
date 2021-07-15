@@ -25,8 +25,8 @@ public class UserEntity {
     @Column(name= "user_id", columnDefinition = "CHAR(36)")
     @Type(type="uuid-char")
     private UUID userId;
-
     private String user_name;
+
     private String password;
     public String name;
     public String email;
