@@ -52,10 +52,10 @@ public class UserController {
     }
 
     @PutMapping("/user/{user_id}")
-    public ResponseEntity<UserEntity> update(@RequestBody UserEntity user, @PathVariable UUID user_id) {
+    public ResponseEntity<UserEntity> update(@RequestBody UserBasicDto user, @PathVariable UUID user_id) {
         try {
 //            UserEntity editUser = userService.getById(user_id);
-//            userService.save(user);
+            userService.updateUser(user, user_id);
             return new ResponseEntity<UserEntity>(HttpStatus.OK);
         }
         catch (NoSuchElementException ex) {

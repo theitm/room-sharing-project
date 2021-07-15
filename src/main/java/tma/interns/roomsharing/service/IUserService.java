@@ -12,4 +12,5 @@ public interface IUserService {
     void createUser(UserCreateDto user);
     UserBasicDto getById(UUID user_id);
     void delete(UUID user_id);
+    UserBasicDto updateUser(UserBasicDto dto, UUID userId);
 }
