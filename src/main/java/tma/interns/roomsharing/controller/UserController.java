@@ -23,9 +23,11 @@ public class UserController {
 
 
     @GetMapping("/user")
-    public List<UserEntity> list() {
+    public ResponseEntity<List<UserBasicDto>> list() {
         try {
-            return userService.listAll();
+            List<UserBasicDto> users = userService.listAll();
+            return new ResponseEntity<>(users, HttpStatus.OK);
+
         } catch (Exception ex) {
             throw ex;
         }
@@ -43,28 +45,31 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public void create(@RequestBody UserCreateDto newUser) {
+    public  ResponseEntity<UserBasicDto> create(@RequestBody UserCreateDto newUser) {
         try {
-            userService.createUser(newUser);
-        } catch (Exception ex) {
-            throw ex;
+            UserBasicDto userReturn = userService.createUser(newUser);
+            return new ResponseEntity<>(userReturn,HttpStatus.OK);
+        }
+        catch (NoSuchElementException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping("/user/{user_id}")
-    public ResponseEntity<UserEntity> update(@RequestBody UserBasicDto user, @PathVariable UUID user_id) {
+    public ResponseEntity<UserBasicDto> update(@RequestBody UserBasicDto user, @PathVariable UUID user_id) {
         try {
-//            UserEntity editUser = userService.getById(user_id);
-            userService.updateUser(user, user_id);
-            return new ResponseEntity<UserEntity>(HttpStatus.OK);
+            UserBasicDto userDto = userService.updateUser(user,user_id);
+            return new ResponseEntity<>(userDto,HttpStatus.OK);
         }
         catch (NoSuchElementException ex) {
-            return new ResponseEntity<UserEntity>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping ("/user/{user_id}")
     public void delete (@RequestParam (name = "user_id") UUID user_id) throws Exception{
+
+        // TODO: fix
         try {
             userService.delete(user_id);
         }

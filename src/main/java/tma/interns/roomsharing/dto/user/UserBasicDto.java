@@ -6,8 +6,8 @@ import java.util.Date;
 
 @Data
 public class UserBasicDto {
-    private String user_name;
     public String name;
     public String email;
     public String address;
+    public String phone;
 }

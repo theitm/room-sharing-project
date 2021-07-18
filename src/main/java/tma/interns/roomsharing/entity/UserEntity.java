@@ -25,15 +25,18 @@ public class UserEntity {
     @Column(name= "user_id", columnDefinition = "CHAR(36)")
     @Type(type="uuid-char")
     private UUID userId;
-    private String user_name;
-
+    @Column(name="user_name")
+    private String userName;
     private String password;
-    public String name;
-    public String email;
-    public String address;
-    public String number_phone;
-    public Date date_of_birth;
-    public boolean gender;
-    public String avatar_url;
-    public Enum role;
+    private String name;
+    private String email;
+    private String address;
+    @Column(name="number_phone")
+    private String phone;
+    @Column(name="date_of_birth")
+    private Date birthDate;
+    private boolean gender;
+    @Column(name="avatar_url")
+    private String avatarUrl;
+    private Enum role;
 }

@@ -8,6 +8,7 @@ import tma.interns.roomsharing.mapper.IUserMapper;
 import tma.interns.roomsharing.repository.UserRepository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,13 +22,19 @@ public class UserService implements IUserService {
         this.userMapper = userMapper;
     }
 
-    public List <UserEntity> listAll() {
-        return userRepo.findAll();
+    public List <UserBasicDto> listAll() {
+        List<UserEntity> users = userRepo.findAll();
+        if(users != null && users.size() >0){
+            return userMapper.toBasicDtos(users);
+        }
+        return new ArrayList<>();
     }
 
-    public void createUser (UserCreateDto user) {
+
+    public UserBasicDto createUser (UserCreateDto user) {
         UserEntity userEntity = userMapper.fromCreateToEntity(user);
-        userRepo.save(userEntity);
+        UserEntity returnUser = userRepo.save(userEntity);
+        return userMapper.toBasicDto(returnUser);
     }
     public UserBasicDto getById(UUID user_id){
         UserEntity userEntity = userRepo.findFirstByUserId(user_id);

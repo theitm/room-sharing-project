@@ -6,13 +6,13 @@ import java.util.Date;
 
 @Data
 public class UserCreateDto {
-    private String user_name;
+    private String userName;
     private String password;
-    public String name;
-    public String email;
-    public String address;
-    public String number_phone;
-    public Date date_of_birth;
-    public boolean gender;
-    public String avatar_url;
+    private String name;
+    private String email;
+    private String address;
+    private String phone;
+    private Date birthDate;
+    private boolean gender;
+    private String avatarUrl;
 }
