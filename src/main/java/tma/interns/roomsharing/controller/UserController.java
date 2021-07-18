@@ -21,15 +21,14 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @GetMapping("/user")
     public ResponseEntity<List<UserBasicDto>> list() {
         try {
             List<UserBasicDto> users = userService.listAll();
             return new ResponseEntity<>(users, HttpStatus.OK);
-
-        } catch (Exception ex) {
-            throw ex;
+        }
+       catch (NoSuchElementException ex) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -68,8 +67,6 @@ public class UserController {
 
     @DeleteMapping ("/user/{user_id}")
     public void delete (@RequestParam (name = "user_id") UUID user_id) throws Exception{
-
-        // TODO: fix
         try {
             userService.delete(user_id);
         }
