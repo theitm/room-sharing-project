@@ -3,11 +3,13 @@ package tma.interns.roomsharing.dto.user;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 public class UserBasicDto {
-    public String name;
-    public String email;
-    public String address;
-    public String phone;
+    private UUID userId;
+    private String name;
+    private String email;
+    private String address;
+    private String phone;
 }

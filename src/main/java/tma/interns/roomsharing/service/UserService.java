@@ -43,8 +43,13 @@ public class UserService implements IUserService {
         }
         return null;
     }
-    public void delete(UUID user_id){
-        userRepo.deleteById(user_id);
+    public boolean delete(UUID user_id){
+        UserEntity userEntity = userRepo.findFirstByUserId(user_id);
+        if(userEntity != null) {
+            userRepo.deleteByUserId(user_id);
+            return true;
+        }
+        return false;
     }
     public UserBasicDto updateUser(UserBasicDto dto, UUID userId) {
         UserEntity userEntity = userMapper.fromBasicToEntity(dto);
