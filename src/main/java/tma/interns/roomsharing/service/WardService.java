@@ -9,7 +9,7 @@ import tma.interns.roomsharing.repository.WardRepository;
 import java.util.List;
 
 @Service
-public class WardService {
+public class WardService extends IWardService {
 
     @Autowired
     private WardRepository repo;

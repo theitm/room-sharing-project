@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tma.interns.roomsharing.dto.user.UserBasicDto;
 import tma.interns.roomsharing.dto.user.UserCreateDto;
-import tma.interns.roomsharing.entity.UserEntity;
 import tma.interns.roomsharing.service.IUserService;
 
 

@@ -2,7 +2,6 @@ package tma.interns.roomsharing.service;
 
 import tma.interns.roomsharing.dto.user.UserBasicDto;
 import tma.interns.roomsharing.dto.user.UserCreateDto;
-import tma.interns.roomsharing.entity.UserEntity;
 
 import java.util.List;
 import java.util.UUID;

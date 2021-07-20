@@ -6,6 +6,7 @@ import tma.interns.roomsharing.dto.user.UserCreateDto;
 import tma.interns.roomsharing.entity.UserEntity;
 import tma.interns.roomsharing.mapper.IUserMapper;
 import tma.interns.roomsharing.repository.UserRepository;
+import tma.interns.roomsharing.service.IUserService;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import java.util.UUID;
 @Transactional
 public class UserService implements IUserService {
     private final UserRepository userRepo;
+
+
     private final IUserMapper userMapper;
     public UserService(UserRepository userRepo, IUserMapper userMapper) {
         this.userRepo = userRepo;

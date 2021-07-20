@@ -8,18 +8,22 @@ import tma.interns.roomsharing.repository.ProvinceRepository;
 import java.util.List;
 
 @Service
-public class ProvinceService {
+public class ProvinceService implements IProvinceService {
 
     @Autowired
-    private ProvinceRepository repo;
+    private final ProvinceRepository provinceRepo;
+
+    public ProvinceService(ProvinceRepository provinceRepo) {
+        this.provinceRepo = provinceRepo;
+    }
 
     public List<ProvinceEntity> listAll(){
-        return repo.findAll();
+        return provinceRepo.findAll();
     }
     public void save(ProvinceEntity provinceEntity){
-        repo.save(provinceEntity);
+        provinceRepo.save(provinceEntity);
     }
     public ProvinceEntity get(String Province_id){
-        return repo.findById(Province_id).get();
+        return provinceRepo.findById(Province_id).get();
     }
 }
