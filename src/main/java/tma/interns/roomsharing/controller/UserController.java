@@ -5,9 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tma.interns.roomsharing.dto.user.UserBasicDto;
 import tma.interns.roomsharing.dto.user.UserCreateDto;
-import tma.interns.roomsharing.entity.UserEntity;
 import tma.interns.roomsharing.service.IUserService;
-
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -65,12 +63,16 @@ public class UserController {
         }
     }
 
-    @DeleteMapping ("/user/{user_id}")
-    public void delete (@RequestParam (name = "user_id") UUID user_id) throws Exception{
+    @DeleteMapping("/user/{user_id}")
+    public ResponseEntity<UserBasicDto> delete(@PathVariable UUID user_id) {
         try {
-            userService.delete(user_id);
-        }
-        catch (Exception ex){
+            if(userService.delete(user_id)){
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception ex) {
             throw ex;
         }
     }
