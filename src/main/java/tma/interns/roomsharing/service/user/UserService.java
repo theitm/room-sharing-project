@@ -26,10 +26,12 @@ public class UserService implements IUserService{
 
 
     private final IUserMapper userMapper;
+
     public UserService(UserRepository userRepo, IUserMapper userMapper) {
         this.userRepo = userRepo;
         this.userMapper = userMapper;
     }
+
 
     public List <UserBasicDto> listAll() {
         List<UserEntity> users = userRepo.findAll();
