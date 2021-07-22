@@ -1,11 +1,18 @@
 package tma.interns.roomsharing.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import tma.interns.roomsharing.dto.user.UserBasicDto;
 import tma.interns.roomsharing.dto.user.UserCreateDto;
-import tma.interns.roomsharing.service.IUserService;
+import tma.interns.roomsharing.dto.authentication.AuthenticationRequestDto;
+import tma.interns.roomsharing.dto.authentication.AuthenticationResponseDto;
+import tma.interns.roomsharing.dto.user.UserInfoDto;
+import tma.interns.roomsharing.service.user.IUserService;
+import tma.interns.roomsharing.util.JwtUtil;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -13,6 +20,9 @@ import java.util.UUID;
 
 @RestController
 public class UserController {
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     private final IUserService userService;
 
     public UserController(IUserService userService) {
@@ -75,5 +85,12 @@ public class UserController {
         } catch (Exception ex) {
             throw ex;
         }
+    }
+
+
+    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequestDto authenticationRequestDto) throws Exception {
+        UserInfoDto userInfoDto = userService.login(authenticationRequestDto);
+        return new ResponseEntity<>(userInfoDto, HttpStatus.OK);
     }
 }
