@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -26,4 +27,8 @@ public class WardEntity {
     @Column(name="district_id")
     private UUID districtId;
     private String name;
+
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "ward_id", referencedColumnName = "ward_id", insertable = false, updatable = false)
+//    private List<RoomInfoEntity> listRoomInfo;
 }

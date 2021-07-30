@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import tma.interns.roomsharing.filters.JwtRequestFilter;
 import tma.interns.roomsharing.service.AuthenticationService;
-
+// Oke rồi đó cho em hỏi tí, nếu data mấy b k update thì e đẩu code lên mb chạy lỗi thì s anh còn đó k , anh ơi njjhj
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
