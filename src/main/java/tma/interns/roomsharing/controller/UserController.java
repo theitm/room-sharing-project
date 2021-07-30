@@ -4,15 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import tma.interns.roomsharing.dto.authentication.AuthenticationRequestDto;
 import tma.interns.roomsharing.dto.user.UserBasicDto;
 import tma.interns.roomsharing.dto.user.UserCreateDto;
-import tma.interns.roomsharing.dto.authentication.AuthenticationRequestDto;
-import tma.interns.roomsharing.dto.authentication.AuthenticationResponseDto;
 import tma.interns.roomsharing.dto.user.UserInfoDto;
 import tma.interns.roomsharing.service.user.IUserService;
-import tma.interns.roomsharing.util.JwtUtil;
 
 import java.util.List;
 import java.util.NoSuchElementException;

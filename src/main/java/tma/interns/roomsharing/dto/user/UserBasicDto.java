@@ -2,7 +2,6 @@ package tma.interns.roomsharing.dto.user;
 
 import lombok.Data;
 
-import java.util.Date;
 import java.util.UUID;
 
 @Data
