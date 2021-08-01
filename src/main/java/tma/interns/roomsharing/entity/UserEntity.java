@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import tma.interns.roomsharing.enumration.UserRole;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -38,5 +39,6 @@ public class UserEntity {
     private boolean gender;
     @Column(name="avatar_url")
     private String avatarUrl;
-    private Enum role;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 }
