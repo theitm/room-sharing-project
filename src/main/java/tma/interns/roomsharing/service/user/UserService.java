@@ -35,7 +35,7 @@ public class UserService implements IUserService{
 
     public List <UserBasicDto> listAll() {
         List<UserEntity> users = userRepo.findAll();
-        if(users != null && users.size() >0){
+        if(users.size() >0){
             return userMapper.toBasicDtos(users);
         }
         return new ArrayList<>();
