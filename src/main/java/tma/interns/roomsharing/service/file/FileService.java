@@ -7,8 +7,6 @@ import tma.interns.roomsharing.mapper.IFileMapper;
 import tma.interns.roomsharing.repository.FileRepository;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,14 +19,12 @@ public class FileService implements IFileService {
         this.fileMapper = fileMapper;
     }
 
-    @Override
     public FileDto createFile (FileDto file){
         FileEntity fileEntity = fileMapper.fromFileDtoToFileEntity(file);
         FileEntity returnFile = fileRepo.save(fileEntity);
         return fileMapper.toFileDto(returnFile);
     }
 
-    @Override
     public FileDto updateFile (FileDto fileDto, UUID fileId){
         FileEntity fileEntity = fileMapper.fromFileDtoToFileEntity(fileDto);
         fileEntity.setFileId(fileId);
@@ -36,7 +32,6 @@ public class FileService implements IFileService {
         return fileMapper.toFileDto(returnFile);
     }
 
-    @Override
     public boolean delete(UUID fileId) {
         FileEntity fileEntity = fileRepo.findFirstByFileId(fileId);
         if(fileEntity != null){
@@ -46,7 +41,6 @@ public class FileService implements IFileService {
         return false;
     }
 
-    @Override
     public FileDto getById (UUID fileId){
         FileEntity fileEntity = fileRepo.findFirstByFileId(fileId);
         if(fileEntity != null){
