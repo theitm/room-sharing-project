@@ -12,7 +12,7 @@ import java.util.List;
 public interface IUserMapper {
     UserEntity fromCreateToEntity(UserCreateDto dto);
     UserBasicDto toBasicDto(UserEntity userEntity);
-    UserEntity fromBasicToEntity(UserBasicDto dto);
+    UserCreateDto toCreateDto(UserEntity userEntity);
     UserInfoDto toInfoDto(UserEntity userEntity);
     List<UserBasicDto> toBasicDtos(List<UserEntity> users);
 }

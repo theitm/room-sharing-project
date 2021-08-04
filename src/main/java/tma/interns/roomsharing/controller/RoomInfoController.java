@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tma.interns.roomsharing.dto.room.RoomInfoBasicDto;
 import tma.interns.roomsharing.dto.room.RoomInfoCreateDto;
-import tma.interns.roomsharing.service.IRoomInfoService;
+import tma.interns.roomsharing.service.room.IRoomInfoService;
 
 import java.util.List;
 import java.util.NoSuchElementException;

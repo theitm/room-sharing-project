@@ -1,7 +1,8 @@
-package tma.interns.roomsharing.service.roomshare;
+package tma.interns.roomsharing.service.roomShareDetail;
 
 import org.springframework.stereotype.Service;
-import tma.interns.roomsharing.dto.roomshare.RoomShareDetailDto;
+import tma.interns.roomsharing.dto.roomShareDetail.RoomShareCreateDto;
+import tma.interns.roomsharing.dto.roomShareDetail.RoomShareDetailDto;
 import tma.interns.roomsharing.entity.RoomShareDetailEntity;
 import tma.interns.roomsharing.mapper.IRoomShareDetailMapper;
 import tma.interns.roomsharing.repository.RoomShareDetailRepo;
@@ -21,16 +22,15 @@ public class RoomShareDetailService implements IRoomShareDetailService{
         this.roomShareDetailRepo = roomShareDetailRepo;
         this.roomShareDetailMapper = roomShareDetailMapper;
     }
-
-    public RoomShareDetailDto createShares(RoomShareDetailDto roomShareDetail) {
-        RoomShareDetailEntity roomShareDetailEntity = roomShareDetailMapper.fromSharesDtoToSharesEntity(roomShareDetail);
-        RoomShareDetailEntity returnShares = roomShareDetailRepo.save(roomShareDetailEntity);
-        return roomShareDetailMapper.toSharesDto(returnShares);
+//Thuy devTeam DG5
+    public RoomShareDetailDto createDetail(RoomShareCreateDto roomShareCreateDto) {
+        RoomShareDetailEntity roomShareDetailEntity = roomShareDetailMapper.fromCreateDtoToEntity(roomShareCreateDto);
+        RoomShareDetailEntity returnShareDetail = roomShareDetailRepo.save(roomShareDetailEntity);
+        return roomShareDetailMapper.toDetailDto(returnShareDetail);
     }
 
-
     public boolean delete(UUID roomSharesId) {
-        RoomShareDetailEntity roomShareDetailEntity =roomShareDetailRepo.findFirstByRoomSharesId(roomSharesId);
+        RoomShareDetailEntity roomShareDetailEntity =roomShareDetailRepo.findFirstByRoomShareDetailId(roomSharesId);
         if(roomShareDetailEntity != null){
             roomShareDetailRepo.deleteById(roomSharesId);
             return true;
@@ -41,7 +41,7 @@ public class RoomShareDetailService implements IRoomShareDetailService{
     public List<RoomShareDetailDto> listAll() {
         List<RoomShareDetailEntity> details = roomShareDetailRepo.findAll();
         if( details.size()>0){
-            return roomShareDetailMapper.toShareDetailDto(details);
+            return roomShareDetailMapper.toDetailDtos(details);
         }
         return new ArrayList<>();
     }

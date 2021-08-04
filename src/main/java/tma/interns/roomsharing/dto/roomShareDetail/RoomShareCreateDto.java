@@ -1,11 +1,13 @@
-package tma.interns.roomsharing.dto.roomshare;
+package tma.interns.roomsharing.dto.roomShareDetail;
 
+import lombok.Builder;
 import lombok.Data;
 import tma.interns.roomsharing.enumration.ShareRole;
 
 import java.util.UUID;
 @Data
-public class RoomShareDetailDto {
+@Builder
+public class RoomShareCreateDto {
     private UUID roomSharingId;
     private UUID userId;
     private ShareRole role;

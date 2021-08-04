@@ -9,6 +9,5 @@ import java.util.UUID;
 @Repository
 public interface RoomInfoRepository extends JpaRepository<RoomInfoEntity, UUID> {
     RoomInfoEntity findFirstByRoomId(UUID room_id);
-
     void deleteByRoomId(UUID room_id);
 }

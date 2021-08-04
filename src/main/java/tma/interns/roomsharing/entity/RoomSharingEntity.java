@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -26,4 +27,8 @@ public class RoomSharingEntity {
     @Column(name="room_id")
     @Type(type ="uuid-char")
     private UUID roomId;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "room_sharing_id", referencedColumnName = "room_sharing_id", insertable = false, updatable = false)
+    private List<RoomShareDetailEntity> listRoomShareDetail;
 }

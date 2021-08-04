@@ -16,7 +16,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 @Builder
-@Entity@Table(name="district")
+@Entity
+@Table(name="district")
 public class DistrictEntity {
     @Id
     @GeneratedValue(generator = "uuid2", strategy = GenerationType.IDENTITY)

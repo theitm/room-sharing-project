@@ -1,4 +1,4 @@
-package tma.interns.roomsharing.service;
+package tma.interns.roomsharing.service.room;
 
 import tma.interns.roomsharing.dto.room.RoomInfoBasicDto;
 import tma.interns.roomsharing.dto.room.RoomInfoCreateDto;
