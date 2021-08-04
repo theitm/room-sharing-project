@@ -6,6 +6,5 @@ import java.util.UUID;
 
 public interface IRoomSharingService {
     RoomSharingDto newRoomSharing (RoomSharingDto roomSharing);
-    RoomSharingDto getById (RoomSharingDto room, UUID roomSharingId);
-    boolean delete(UUID roomSharingId);
+   // RoomSharingDto getById (RoomSharingDto room, UUID roomSharingId);
 }

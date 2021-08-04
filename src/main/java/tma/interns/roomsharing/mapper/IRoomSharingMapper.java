@@ -7,6 +7,6 @@ import tma.interns.roomsharing.entity.RoomSharingEntity;
 @Mapper(componentModel = "spring")
 
 public interface IRoomSharingMapper {
-    RoomSharingEntity fromRoomSharingDtoToRoomSharingEntity (RoomSharingDto dto);
+    RoomSharingEntity fromSharingDtoToEntity(RoomSharingDto dto);
     RoomSharingDto toRoomSharingDto(RoomSharingEntity roomSharingEntity);
 }

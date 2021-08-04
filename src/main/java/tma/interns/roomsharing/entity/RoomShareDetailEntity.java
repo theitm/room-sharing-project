@@ -23,7 +23,7 @@ public class RoomShareDetailEntity {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name= "room_sharings_id", columnDefinition = "CHAR(36)")
     @Type(type="uuid-char")
-    private UUID roomSharesId;
+    private UUID roomShareDetailId;
     @Column(name= "room_sharing_id")
     @Type(type="uuid-char")
     private UUID roomSharingId;

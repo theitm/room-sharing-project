@@ -1,14 +1,15 @@
 package tma.interns.roomsharing.mapper;
 
 import org.mapstruct.Mapper;
-import tma.interns.roomsharing.dto.roomshare.RoomShareDetailDto;
+import tma.interns.roomsharing.dto.roomShareDetail.RoomShareCreateDto;
+import tma.interns.roomsharing.dto.roomShareDetail.RoomShareDetailDto;
 import tma.interns.roomsharing.entity.RoomShareDetailEntity;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface IRoomShareDetailMapper {
-    RoomShareDetailEntity fromSharesDtoToSharesEntity (RoomShareDetailDto dto);
-    RoomShareDetailDto toSharesDto(RoomShareDetailEntity roomShareDetailEntity);
-    List<RoomShareDetailDto> toShareDetailDto(List<RoomShareDetailEntity> details);
+    RoomShareDetailEntity fromCreateDtoToEntity (RoomShareCreateDto roomShareCreateDto);
+    RoomShareDetailDto toDetailDto (RoomShareDetailEntity roomShareDetailEntity);
+    List<RoomShareDetailDto> toDetailDtos(List<RoomShareDetailEntity> roomShareDetailEntities);
 }
