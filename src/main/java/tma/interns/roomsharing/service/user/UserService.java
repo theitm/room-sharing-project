@@ -56,12 +56,12 @@ public class UserService implements IUserService{
         }
         return null;
     }
-
-    public UserBasicDto createUser (UserCreateDto user) {
+//Thuy devTeam DG5
+    public UserCreateDto createUser (UserCreateDto user) {
         UserEntity userEntity = userMapper.fromCreateToEntity(user);
         userEntity.setPassword(Base64.getEncoder().encodeToString((user.getUserName() + ":" + user.getPassword()).getBytes()));
         UserEntity returnUser = userRepo.save(userEntity);
-        return userMapper.toBasicDto(returnUser);
+        return userMapper.toCreateDto(returnUser);
     }
     public UserBasicDto getById(UUID user_id){
         UserEntity userEntity = userRepo.findFirstByUserId(user_id);
@@ -78,8 +78,9 @@ public class UserService implements IUserService{
         }
         return false;
     }
-    public UserBasicDto updateUser(UserBasicDto dto, UUID userId) {
-        UserEntity userEntity = userMapper.fromBasicToEntity(dto);
+
+    public UserBasicDto updateUser(UserCreateDto userCreateDto, UUID userId) {
+        UserEntity userEntity = userMapper.fromCreateToEntity(userCreateDto);
         userEntity.setUserId(userId);
         UserEntity returnUser = userRepo.saveAndFlush(userEntity);
         return userMapper.toBasicDto(returnUser);

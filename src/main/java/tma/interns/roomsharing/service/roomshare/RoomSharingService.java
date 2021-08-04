@@ -3,6 +3,7 @@ package tma.interns.roomsharing.service.roomshare;
 import org.springframework.stereotype.Service;
 import tma.interns.roomsharing.dto.roomShareDetail.RoomShareCreateDto;
 import tma.interns.roomsharing.dto.roomshare.RoomSharingDto;
+import tma.interns.roomsharing.entity.RoomShareDetailEntity;
 import tma.interns.roomsharing.entity.RoomSharingEntity;
 import tma.interns.roomsharing.enumration.ShareRole;
 import tma.interns.roomsharing.mapper.IRoomSharingMapper;
@@ -10,6 +11,8 @@ import tma.interns.roomsharing.repository.RoomSharingRepo;
 import tma.interns.roomsharing.service.roomShareDetail.IRoomShareDetailService;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -32,8 +35,13 @@ public class RoomSharingService implements IRoomSharingService{
         return roomSharingMapper.toRoomSharingDto(roomSharingEntity);
     }
 
-    //public RoomSharingDto getById(RoomSharingDto room, UUID roomSharingId) {
-//        return null;
-//    }
+    @Override
+    public List<RoomSharingDto> listAll() {
+        List<RoomSharingEntity> roomSharingList = roomSharingRepo.findAll();
+        if( roomSharingList.size()>0){
+            return roomSharingMapper.toRoomSharingDtos(roomSharingList);
+        }
+        return new ArrayList<>();
+    }
 
 }

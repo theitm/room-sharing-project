@@ -9,6 +9,7 @@ import org.hibernate.annotations.Type;
 import tma.interns.roomsharing.enumration.ShareRole;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
