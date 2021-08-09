@@ -7,7 +7,7 @@ import tma.interns.roomsharing.enumration.ShareRole;
 import java.util.UUID;
 @Data
 @Builder
-public class RoomShareCreateDto {
+public class RoomShareCreateDetailDto {
     private UUID roomSharingId;
     private UUID userId;
     private ShareRole role;

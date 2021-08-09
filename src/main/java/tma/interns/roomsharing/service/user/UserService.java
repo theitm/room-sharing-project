@@ -24,7 +24,6 @@ public class UserService implements IUserService{
     @Autowired
     private JwtUtil jwtTokenUtil;
 
-
     private final IUserMapper userMapper;
 
     public UserService(UserRepository userRepo, IUserMapper userMapper) {
@@ -32,14 +31,6 @@ public class UserService implements IUserService{
         this.userMapper = userMapper;
     }
 
-
-    public List <UserBasicDto> listAll() {
-        List<UserEntity> users = userRepo.findAll();
-        if(users.size() >0){
-            return userMapper.toBasicDtos(users);
-        }
-        return new ArrayList<>();
-    }
 //hieu
     @Override
     public UserInfoDto login(AuthenticationRequestDto authenticationRequestDto) {
@@ -56,13 +47,21 @@ public class UserService implements IUserService{
         }
         return null;
     }
-//Thuy devTeam DG5
+
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        Optional<UserEntity> user = userRepo.findByUserName(userName);
+        user.orElseThrow(()-> new UsernameNotFoundException("Not found"+userName));
+        return user.map(UserLoginDto::new).get();
+    }
+
     public UserCreateDto createUser (UserCreateDto user) {
         UserEntity userEntity = userMapper.fromCreateToEntity(user);
         userEntity.setPassword(Base64.getEncoder().encodeToString((user.getUserName() + ":" + user.getPassword()).getBytes()));
         UserEntity returnUser = userRepo.save(userEntity);
         return userMapper.toCreateDto(returnUser);
     }
+
     public UserBasicDto getById(UUID user_id){
         UserEntity userEntity = userRepo.findFirstByUserId(user_id);
         if(userEntity != null) {
@@ -70,6 +69,7 @@ public class UserService implements IUserService{
         }
         return null;
     }
+
     public boolean delete(UUID user_id){
         UserEntity userEntity = userRepo.findFirstByUserId(user_id);
         if(userEntity != null) {
@@ -85,10 +85,12 @@ public class UserService implements IUserService{
         UserEntity returnUser = userRepo.saveAndFlush(userEntity);
         return userMapper.toBasicDto(returnUser);
     }
-    @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Optional<UserEntity> user = userRepo.findByUserName(userName);
-        user.orElseThrow(()-> new UsernameNotFoundException("Not found"+userName));
-        return user.map(UserLoginDto::new).get();
+
+    public List <UserBasicDto> listAll() {
+        List<UserEntity> users = userRepo.findAll();
+        if(users.size() >0){
+            return userMapper.toBasicDtos(users);
+        }
+        return new ArrayList<>();
     }
 }
