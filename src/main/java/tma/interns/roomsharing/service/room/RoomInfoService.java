@@ -49,6 +49,7 @@ public class RoomInfoService implements IRoomInfoService {
         RoomInfoEntity returnRoom = roomRepo.save(roomEntity);
         return roomMapper.toBasicDto(returnRoom);
     }
+
     public boolean delete(UUID room_id){
         RoomInfoEntity roomInfoEntity = roomRepo.findFirstByRoomId(room_id);
         if(roomInfoEntity != null){

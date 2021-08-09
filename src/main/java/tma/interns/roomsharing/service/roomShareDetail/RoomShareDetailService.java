@@ -1,9 +1,10 @@
 package tma.interns.roomsharing.service.roomShareDetail;
 
 import org.springframework.stereotype.Service;
-import tma.interns.roomsharing.dto.roomShareDetail.RoomShareCreateDto;
+import tma.interns.roomsharing.dto.roomShareDetail.RoomShareCreateDetailDto;
 import tma.interns.roomsharing.dto.roomShareDetail.RoomShareDetailDto;
 import tma.interns.roomsharing.entity.RoomShareDetailEntity;
+import tma.interns.roomsharing.enumration.ShareRole;
 import tma.interns.roomsharing.mapper.IRoomShareDetailMapper;
 import tma.interns.roomsharing.repository.RoomShareDetailRepo;
 
@@ -22,27 +23,69 @@ public class RoomShareDetailService implements IRoomShareDetailService{
         this.roomShareDetailRepo = roomShareDetailRepo;
         this.roomShareDetailMapper = roomShareDetailMapper;
     }
-//Thuy devTeam DG5
-    public RoomShareDetailDto createDetail(RoomShareCreateDto roomShareCreateDto) {
-        RoomShareDetailEntity roomShareDetailEntity = roomShareDetailMapper.fromCreateDtoToEntity(roomShareCreateDto);
+
+    /**
+     * Create room sharing detail
+     *
+     * @author tt0411
+     * @param roomShareCreateDetailDto
+     * @return room sharing create detail
+     * @throws Exception
+     */
+    public RoomShareDetailDto createDetail(RoomShareCreateDetailDto roomShareCreateDetailDto) throws Exception {
+        RoomShareDetailEntity getEntity = roomShareDetailRepo.findFirstByUserId(roomShareCreateDetailDto.getUserId());
+        if(getEntity != null) throw new Exception("User ID da ton tai");
+        RoomShareDetailEntity roomShareDetailEntity = roomShareDetailMapper.fromCreateDtoToEntity(roomShareCreateDetailDto);
         RoomShareDetailEntity returnShareDetail = roomShareDetailRepo.save(roomShareDetailEntity);
         return roomShareDetailMapper.toDetailDto(returnShareDetail);
     }
 
-    public boolean delete(UUID roomSharesId) {
-        RoomShareDetailEntity roomShareDetailEntity =roomShareDetailRepo.findFirstByRoomShareDetailId(roomSharesId);
+    /**
+     * delete room sharing detail
+     *
+     * @author tt0411
+     * @param roomShareDetailId
+     * @return status 200
+     */
+    public boolean delete(UUID roomShareDetailId) {
+        RoomShareDetailEntity roomShareDetailEntity =roomShareDetailRepo.findFirstByRoomShareDetailId(roomShareDetailId);
         if(roomShareDetailEntity != null){
-            roomShareDetailRepo.deleteById(roomSharesId);
+            roomShareDetailRepo.deleteById(roomShareDetailId);
             return true;
         }
         return false;
     }
 
-    public List<RoomShareDetailDto> listAll() {
-        List<RoomShareDetailEntity> details = roomShareDetailRepo.findAll();
+    /**
+     * list all by room sharing id
+     *
+     * @author tt0411
+     * @param roomSharingId
+     * @return list room sharing detail by room sharing id
+     */
+    public List<RoomShareDetailDto> listAllByRoomSharingId(UUID roomSharingId) {
+        List<RoomShareDetailEntity> details = roomShareDetailRepo.findFirstByRoomSharingId(roomSharingId);
         if( details.size()>0){
             return roomShareDetailMapper.toDetailDtos(details);
         }
         return new ArrayList<>();
+    }
+
+    /**
+     * join room sharing detail with capacity member
+     *
+     * @author hienlee
+     * @param roomShareCreateDetailDto
+     * @param roomSharingId
+     * @return room sharing detail
+     * @throws Exception
+     */
+    public RoomShareDetailDto joinByRoomSharingId (RoomShareCreateDetailDto roomShareCreateDetailDto, UUID roomSharingId) throws Exception {
+        RoomShareDetailEntity getEntity = roomShareDetailRepo.findFirstByUserId(roomShareCreateDetailDto.getUserId());
+        if(getEntity != null) throw new Exception("User ID da ton tai");
+        RoomShareDetailEntity roomShareDetailEntity = roomShareDetailMapper.fromCreateDtoToEntity(roomShareCreateDetailDto);
+        roomShareDetailEntity.setRole(ShareRole.Member);
+        roomShareDetailEntity = roomShareDetailRepo.save(roomShareDetailEntity);
+        return roomShareDetailMapper.toDetailDto(roomShareDetailEntity);
     }
 }
