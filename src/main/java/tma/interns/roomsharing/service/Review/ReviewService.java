@@ -47,13 +47,6 @@ public class ReviewService implements IReviewService {
         return null;
     }
 
-    public ReviewDto getByParentTypeAndParentId(int parentType, UUID parentId) {
-        ReviewEntity reviewEntity = reviewRepo.findByParentTypeAndParentId(parentType,parentId);
-        if(reviewEntity != null){
-            return  reviewMapper.toReDto(reviewEntity);
-        }
-        return null;
-    }
 
     public List <ReviewDto> listAll(){
         List<ReviewEntity> reviews = reviewRepo.findAll();

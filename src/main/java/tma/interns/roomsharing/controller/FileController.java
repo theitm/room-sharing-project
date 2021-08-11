@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tma.interns.roomsharing.dto.file.FileDto;
 import tma.interns.roomsharing.dto.file.FileSearchDto;
-import tma.interns.roomsharing.entity.FileEntity;
 import tma.interns.roomsharing.service.file.IFileService;
 
 import java.util.NoSuchElementException;

@@ -49,9 +49,9 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public  ResponseEntity<UserBasicDto> create(@RequestBody UserCreateDto newUser) {
+    public  ResponseEntity<UserCreateDto> create(@RequestBody UserCreateDto newUser) {
         try {
-            UserBasicDto userReturn = userService.createUser(newUser);
+            UserCreateDto userReturn = userService.createUser(newUser);
             return new ResponseEntity<>(userReturn,HttpStatus.OK);
         }
         catch (NoSuchElementException ex) {
@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @PutMapping("/user/{user_id}")
-    public ResponseEntity<UserBasicDto> update(@RequestBody UserBasicDto user, @PathVariable UUID user_id) {
+    public ResponseEntity<UserBasicDto> update(@RequestBody UserCreateDto user, @PathVariable UUID user_id) {
         try {
             UserBasicDto userDto = userService.updateUser(user,user_id);
             return new ResponseEntity<>(userDto,HttpStatus.OK);

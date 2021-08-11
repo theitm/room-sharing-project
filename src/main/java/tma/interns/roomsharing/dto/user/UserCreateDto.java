@@ -1,7 +1,7 @@
 package tma.interns.roomsharing.dto.user;
 
 import lombok.Data;
-
+import tma.interns.roomsharing.enumration.UserRole;
 import java.util.Date;
 
 @Data
@@ -15,4 +15,5 @@ public class UserCreateDto {
     private Date birthDate;
     private boolean gender;
     private String avatarUrl;
+    private UserRole role;
 }

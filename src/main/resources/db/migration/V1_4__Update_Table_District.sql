@@ -1,4 +1,2 @@
-ALTER TABLE `districs`
-CHANGE COLUMN `districs_id` `district_id` varchar(36) DEFAULT NULL , RENAME TO  `room_sharing`.`district` ;
-
-
+ALTER TABLE `room_sharing`.`districs`
+CHANGE COLUMN `districs_id` `district_id` VARCHAR(36) NOT NULL , RENAME TO  `room_sharing`.`district` ;

@@ -1,12 +1,12 @@
 package tma.interns.roomsharing.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import tma.interns.roomsharing.enumration.ShareRole;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,22 +17,20 @@ import java.util.UUID;
 @Data
 @Builder
 @Entity
-@Table(name="district")
-public class DistrictEntity {
+@Table(name ="room_sharing_detail")
+public class RoomShareDetailEntity {
     @Id
     @GeneratedValue(generator = "uuid2", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name= "district_id", columnDefinition = "CHAR(36)")
+    @Column(name= "room_sharings_id", columnDefinition = "CHAR(36)")
     @Type(type="uuid-char")
-    private UUID districtId;
-
-    @Column(name = "province_id")
-    private UUID provinceId;
-
-    @Column(name = "name")
-    private String name;
-
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "district_id", referencedColumnName = "district_id", insertable = false, updatable = false)
-    private List<WardEntity> listWard;
+    private UUID roomShareDetailId;
+    @Column(name= "room_sharing_id")
+    @Type(type="uuid-char")
+    private UUID roomSharingId;
+    @Column(name="user_id")
+    @Type(type="uuid-char")
+    private UUID userId;
+    @Enumerated(EnumType.STRING)
+    private ShareRole role;
 }

@@ -7,8 +7,6 @@ import tma.interns.roomsharing.mapper.IFileMapper;
 import tma.interns.roomsharing.repository.FileRepository;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,14 +19,27 @@ public class FileService implements IFileService {
         this.fileMapper = fileMapper;
     }
 
-    @Override
+    /**
+     * create file
+     *
+     * @author tt0411
+     * @param file
+     * @return file detail
+     */
     public FileDto createFile (FileDto file){
         FileEntity fileEntity = fileMapper.fromFileDtoToFileEntity(file);
         FileEntity returnFile = fileRepo.save(fileEntity);
         return fileMapper.toFileDto(returnFile);
     }
 
-    @Override
+    /**
+     * update fiel
+     *
+     * @author tt0411
+     * @param fileDto
+     * @param fileId
+     * @return new file
+     */
     public FileDto updateFile (FileDto fileDto, UUID fileId){
         FileEntity fileEntity = fileMapper.fromFileDtoToFileEntity(fileDto);
         fileEntity.setFileId(fileId);
@@ -36,7 +47,13 @@ public class FileService implements IFileService {
         return fileMapper.toFileDto(returnFile);
     }
 
-    @Override
+    /**
+     * delete file
+     *
+     * @author tt0411
+     * @param fileId
+     * @return status 200
+     */
     public boolean delete(UUID fileId) {
         FileEntity fileEntity = fileRepo.findFirstByFileId(fileId);
         if(fileEntity != null){
@@ -46,7 +63,13 @@ public class FileService implements IFileService {
         return false;
     }
 
-    @Override
+    /**
+     * get file by fileId
+     *
+     * @author tt0411
+     * @param fileId
+     * @return file detail by fileId
+     */
     public FileDto getById (UUID fileId){
         FileEntity fileEntity = fileRepo.findFirstByFileId(fileId);
         if(fileEntity != null){
@@ -55,6 +78,14 @@ public class FileService implements IFileService {
         return  null;
     }
 
+    /**
+     * get file by parentType and parentId
+     *
+     * @author tt0411
+     * @param parentType
+     * @param parentId
+     * @return file detail by parentType and parentId
+     */
     @Override
     public FileDto getByParentTypeAndParentId(int parentType, UUID parentId) {
         FileEntity fileEntity2 = fileRepo.findByParentTypeAndParentId(parentType,parentId);

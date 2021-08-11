@@ -1,4 +1,4 @@
-package tma.interns.roomsharing.service;
+package tma.interns.roomsharing.service.room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +49,7 @@ public class RoomInfoService implements IRoomInfoService {
         RoomInfoEntity returnRoom = roomRepo.save(roomEntity);
         return roomMapper.toBasicDto(returnRoom);
     }
+
     public boolean delete(UUID room_id){
         RoomInfoEntity roomInfoEntity = roomRepo.findFirstByRoomId(room_id);
         if(roomInfoEntity != null){
