@@ -2,12 +2,13 @@ package tma.interns.roomsharing.service.file;
 
 import tma.interns.roomsharing.dto.file.FileDto;
 
-import java.util.UUID;
+import java.util.*;
 
 public interface IFileService {
     FileDto createFile (FileDto file);
     FileDto updateFile (FileDto file, UUID fileId);
     FileDto getById (UUID fileId);
     boolean delete(UUID fileId);
-    FileDto getByParentTypeAndParentId(int parentType, UUID parentId);
+    List<FileDto> getByParentTypeAndParentId(int parentType, UUID parentId);
+    void deleteByParentTypeAndParentId(int parentType, UUID parentId);
 }

@@ -77,4 +77,21 @@ public class RoomSharingService implements IRoomSharingService{
         }
         return null;
     }
+
+    /**
+     * delete room sharing by room sharing id
+     *
+     * @author hlee
+     * @param roomSharingId
+     * @return status 200
+     */
+    @Override
+    public boolean delete(UUID roomSharingId){
+        RoomSharingEntity roomSharingEntity= roomSharingRepo.findFirstByRoomSharingId(roomSharingId);
+        if(roomSharingEntity != null){
+            roomSharingRepo.deleteById(roomSharingId);
+            return true;
+        }
+        return false;
+    }
 }

@@ -24,32 +24,30 @@ public class RoomSharingController {
     }
 
     @PostMapping("/sharing")
-    public ResponseEntity<RoomSharingDto> newRoomSharing (@RequestBody RoomSharingDto newSharing) throws Exception {
+    public ResponseEntity<RoomSharingDto> newRoomSharing(@RequestBody RoomSharingDto newSharing) throws Exception {
         try {
             RoomSharingDto created = roomSharingService.newRoomSharing(newSharing);
             return new ResponseEntity<>(created, HttpStatus.OK);
         } catch (NoSuchElementException ex) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        catch (Exception ex2){
+        } catch (Exception ex2) {
             throw ex2;
         }
     }
 
     @PostMapping("/sharing/detail/{roomSharingId}")
-    public ResponseEntity<RoomShareDetailDto> join (@RequestBody RoomShareCreateDetailDto joinMember, @PathVariable UUID roomSharingId) throws Exception {
+    public ResponseEntity<RoomShareDetailDto> join(@RequestBody RoomShareCreateDetailDto joinMember, @PathVariable UUID roomSharingId) throws Exception {
         try {
-            RoomShareDetailDto joined = roomShareDetailService.joinByRoomSharingId(joinMember,roomSharingId);
+            RoomShareDetailDto joined = roomShareDetailService.joinByRoomSharingId(joinMember, roomSharingId);
             return new ResponseEntity<>(joined, HttpStatus.OK);
         } catch (NoSuchElementException ex) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        catch (Exception ex2){
+        } catch (Exception ex2) {
             throw ex2;
         }
     }
 
-     @DeleteMapping("/sharing/detail/{roomShareDetailId}")
+    @DeleteMapping("/sharing/detail/{roomShareDetailId}")
     public ResponseEntity<HttpStatus> delete(@PathVariable UUID roomShareDetailId) {
         try {
             roomShareDetailService.delete(roomShareDetailId);
@@ -60,23 +58,33 @@ public class RoomSharingController {
     }
 
     @GetMapping("/sharing")
-    public ResponseEntity<List<RoomSharingDto>> listAll(){
+    public ResponseEntity<List<RoomSharingDto>> listAll() {
         try {
             List<RoomSharingDto> roomSharingDtoList = roomSharingService.listAll();
             return new ResponseEntity<>(roomSharingDtoList, HttpStatus.OK);
-        }
-        catch (NoSuchElementException ex) {
+        } catch (NoSuchElementException ex) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("/sharing/{roomSharingId}")
-    public ResponseEntity<RoomSharingDto> getRoomSharing (@PathVariable UUID roomSharingId){
+    public ResponseEntity<RoomSharingDto> getRoomSharing(@PathVariable UUID roomSharingId) {
         try {
-            RoomSharingDto roomSharingDto=roomSharingService.getById(roomSharingId);
-            return new ResponseEntity<>(roomSharingDto,HttpStatus.OK);
-        }catch (NoSuchElementException ex){
+            RoomSharingDto roomSharingDto = roomSharingService.getById(roomSharingId);
+            return new ResponseEntity<>(roomSharingDto, HttpStatus.OK);
+        } catch (NoSuchElementException ex) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-}
+
+
+    @DeleteMapping("/sharing/{roomSharingId}")
+    public ResponseEntity<HttpStatus> deleteSharing(@PathVariable UUID roomSharingId) {
+        try {
+                roomSharingService.delete(roomSharingId);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }catch (Exception ex){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+    }

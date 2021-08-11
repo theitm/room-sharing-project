@@ -1,5 +1,6 @@
 package tma.interns.roomsharing.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -50,17 +51,20 @@ public class RoomInfoEntity {
     private Float acreage;
 
     @Column(name= "room_price")
-    private int roomPrice = 0;
+    private Integer roomPrice = 0;
 
     private String roomDescribe;
 
-    @Column(name= "status")
+    @Column(name= "statusHired")
     @Enumerated(EnumType.STRING)
     private StatusType statusHired;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "user_id", insertable = false, updatable = false)
-//    private UserEntity user;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private UserEntity user;
+    @Transient
+    private List<FileEntity> files;
 }

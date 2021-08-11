@@ -1,12 +1,15 @@
 package tma.interns.roomsharing.enumration;
 
-public enum RoomType {
+public enum ParentType
+{
     Room("room",1),
-    House("house",2);
-    private final String key;
-    private final Integer value;
+    Review("review",2),
+    Comment("comment",3);
 
-    RoomType(String key, Integer value) {
+   private final String key;
+   private final Integer value;
+
+    ParentType(String key, Integer value) {
         this.key = key;
         this.value = value;
     }

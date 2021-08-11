@@ -1,16 +1,16 @@
 package tma.interns.roomsharing.service.room;
 
 import tma.interns.roomsharing.dto.room.RoomInfoBasicDto;
+import tma.interns.roomsharing.dto.room.RoomInfoDetailDto;
 import tma.interns.roomsharing.dto.room.RoomInfoCreateDto;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface IRoomInfoService {
-
-    RoomInfoBasicDto createRoomInfo(RoomInfoCreateDto user);
-    RoomInfoBasicDto getById(UUID room_id);
+    RoomInfoDetailDto getById(UUID roomId);
     boolean delete(UUID room_id);
-    RoomInfoBasicDto updateRoomInfo (RoomInfoBasicDto dto, UUID roomId);
+    RoomInfoDetailDto updateRoomInfo (RoomInfoDetailDto dto, UUID roomId);
     List<RoomInfoBasicDto> listAll();
+    RoomInfoDetailDto createRoomInfo(RoomInfoCreateDto newRoomInfo);
 }
