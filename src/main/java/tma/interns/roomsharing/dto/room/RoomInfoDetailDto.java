@@ -10,11 +10,11 @@ import tma.interns.roomsharing.enumration.StatusType;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
+import java.util.List;
 
 @Data
-public class RoomInfoBasicDto {
+public class RoomInfoDetailDto {
     private UUID roomId;
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
@@ -31,4 +31,5 @@ public class RoomInfoBasicDto {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
     private UserBasicDto user;
+    private List<FileDto> files;
 }

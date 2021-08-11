@@ -7,7 +7,7 @@ import tma.interns.roomsharing.mapper.IFileMapper;
 import tma.interns.roomsharing.repository.FileRepository;
 
 import javax.transaction.Transactional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Transactional
@@ -87,12 +87,20 @@ public class FileService implements IFileService {
      * @return file detail by parentType and parentId
      */
     @Override
-    public FileDto getByParentTypeAndParentId(int parentType, UUID parentId) {
-        FileEntity fileEntity2 = fileRepo.findByParentTypeAndParentId(parentType,parentId);
+    public List<FileDto> getByParentTypeAndParentId(int parentType, UUID parentId) {
+        List<FileEntity> fileEntity2 = fileRepo.findByParentTypeAndParentId(parentType,parentId);
         if (fileEntity2 != null){
-            return fileMapper.toFileDto(fileEntity2);
+            return fileMapper.toFileDtos(fileEntity2);
         }
         return null;
+    }
+
+    @Override
+    public void deleteByParentTypeAndParentId(int parentType, UUID parentId) {
+        List<FileEntity> fileEntities = fileRepo.findByParentTypeAndParentId(parentType,parentId);
+        for(FileEntity file : fileEntities) {
+            delete(file.getFileId());
+        }
     }
 
 }

@@ -21,7 +21,7 @@ public class RoomInfoCreateDto {
     private UUID wardId;
     private String address;
     private Float acreage;
-    private int roomPrice = 0;
+    private Integer roomPrice = 0;
     private String roomDescribe;
     @Enumerated(EnumType.STRING)
     private StatusType statusHired;

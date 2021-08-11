@@ -7,6 +7,7 @@ import tma.interns.roomsharing.dto.file.FileDto;
 import tma.interns.roomsharing.dto.file.FileSearchDto;
 import tma.interns.roomsharing.service.file.IFileService;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
@@ -52,10 +53,10 @@ public class FileController {
     }
 
     @PostMapping("file/byptypeandpid")
-    public ResponseEntity<FileDto> getByParentTypeParentId(@RequestBody FileSearchDto fileSearchDto){
+    public ResponseEntity<List<FileDto>> getByParentTypeParentId(@RequestBody FileSearchDto fileSearchDto){
         try {
-            FileDto file2 = fileService.getByParentTypeAndParentId(fileSearchDto.getParentType(), fileSearchDto.getParentId());
-            return new ResponseEntity<>(file2,HttpStatus.OK);
+            List<FileDto> file2 = fileService.getByParentTypeAndParentId(fileSearchDto.getParentType(), fileSearchDto.getParentId());
+            return new ResponseEntity<>(file2, HttpStatus.OK);
         }catch (NoSuchElementException ex){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

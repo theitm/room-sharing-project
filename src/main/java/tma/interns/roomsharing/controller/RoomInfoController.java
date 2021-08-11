@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tma.interns.roomsharing.dto.room.RoomInfoBasicDto;
+import tma.interns.roomsharing.dto.room.RoomInfoDetailDto;
 import tma.interns.roomsharing.dto.room.RoomInfoCreateDto;
 import tma.interns.roomsharing.service.room.IRoomInfoService;
 
@@ -29,39 +30,39 @@ public class RoomInfoController {
         }
     }
     @PostMapping("/room")
-    public  ResponseEntity<RoomInfoBasicDto> create(@RequestBody RoomInfoCreateDto newRoomInfo) {
+    public  ResponseEntity<RoomInfoDetailDto> create(@RequestBody RoomInfoCreateDto newRoomInfo) {
         try {
-            RoomInfoBasicDto roomInfoReturn = roomInfoService.createRoomInfo(newRoomInfo);
+            RoomInfoDetailDto roomInfoReturn = roomInfoService.createRoomInfo(newRoomInfo);
             return new ResponseEntity<>(roomInfoReturn,HttpStatus.OK);
         }
         catch (NoSuchElementException ex) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/room/{room_id}")
-    public ResponseEntity<RoomInfoBasicDto> get(@PathVariable UUID room_id) {
+    @GetMapping("/room/{roomId}")
+    public ResponseEntity<RoomInfoDetailDto> get(@PathVariable UUID roomId) {
         try {
-            RoomInfoBasicDto room = roomInfoService.getById(room_id);
+            RoomInfoDetailDto room = roomInfoService.getById(roomId);
             return new ResponseEntity<>(room, HttpStatus.OK);
         }
         catch (NoSuchElementException ex) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PutMapping("/room/{room_id}")
-    public ResponseEntity<RoomInfoBasicDto> update(@RequestBody RoomInfoBasicDto room, @PathVariable UUID room_id) {
+    @PutMapping("/room/{roomId}")
+    public ResponseEntity<RoomInfoDetailDto> update(@RequestBody RoomInfoDetailDto room, @PathVariable UUID roomId) {
         try {
-            RoomInfoBasicDto roomInfoDto = roomInfoService.updateRoomInfo(room,room_id);
+            RoomInfoDetailDto roomInfoDto = roomInfoService.updateRoomInfo(room,roomId);
             return new ResponseEntity<>(roomInfoDto,HttpStatus.OK);
         }
         catch (NoSuchElementException ex) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @DeleteMapping("/room/{room_id}")
-    public ResponseEntity<RoomInfoBasicDto> delete(@PathVariable UUID room_id) {
+    @DeleteMapping("/room/{roomId}")
+    public ResponseEntity<RoomInfoBasicDto> delete(@PathVariable UUID roomId) {
         try {
-            if(roomInfoService.delete(room_id)){
+            if(roomInfoService.delete(roomId)){
                 return new ResponseEntity<>(HttpStatus.OK);
             }
             else{
