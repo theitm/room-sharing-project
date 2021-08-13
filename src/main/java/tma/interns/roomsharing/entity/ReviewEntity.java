@@ -1,5 +1,6 @@
 package tma.interns.roomsharing.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,7 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -29,6 +30,7 @@ public class ReviewEntity{
     @Type(type="uuid-char")
     private UUID userId;
     private String content;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
     private Integer evaluate;
     @Column(name = "parent_type")

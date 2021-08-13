@@ -1,5 +1,6 @@
 package tma.interns.roomsharing.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +10,8 @@ import org.hibernate.annotations.Type;
 import tma.interns.roomsharing.enumration.UserRole;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 import java.util.UUID;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,6 +35,7 @@ public class UserEntity {
     @Column(name="number_phone")
     private String phone;
     @Column(name="date_of_birth")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthDate;
     private boolean gender;
     @Column(name="avatar_url")

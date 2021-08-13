@@ -20,7 +20,7 @@ public class ReviewController {
     }
 
     @PostMapping("/review")
-    public ResponseEntity<ReviewDto> create (@RequestBody ReviewDto newReview){
+    public ResponseEntity<ReviewDto> create (@RequestBody ReviewDto newReview) throws Exception {
         try {
             ReviewDto createdReview = reviewService.createReview(newReview);
             return new ResponseEntity<>(createdReview, HttpStatus.OK);
@@ -30,9 +30,9 @@ public class ReviewController {
     }
 
     @PutMapping("/review/{reviewId}")
-    public ResponseEntity<ReviewUpDto> update (@RequestBody ReviewUpDto review, @PathVariable UUID reviewId){
+    public ResponseEntity<ReviewDto> update (@RequestBody ReviewUpDto review, @PathVariable UUID reviewId) throws Exception {
         try {
-            ReviewUpDto updatedRe = reviewService.updateReview(review,reviewId);
+            ReviewDto updatedRe = reviewService.updateReview(review,reviewId);
             return new ResponseEntity<>(updatedRe,HttpStatus.OK);
         }
         catch (NoSuchElementException ex) {

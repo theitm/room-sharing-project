@@ -24,21 +24,53 @@ public class ReviewService implements IReviewService {
         this.reviewMapper = reviewMapper;
     }
 
+    /**
+     * create review
+     *
+     * @author tt0411
+     * @param review
+     * @return new review
+     */
     public ReviewDto createReview(ReviewDto review) {
         review.setDate(new Date());
         ReviewEntity reviewEntity = reviewMapper.fromReDtoToReEntity(review);
+        //check null
+        if(reviewEntity.getEvaluate()==null) throw new IllegalArgumentException ("Evaluate must not be null");
         ReviewEntity returnReview = reviewRepo.save(reviewEntity);
         return reviewMapper.toReDto(returnReview);
     }
 
-    public ReviewUpDto updateReview(ReviewUpDto reviewUp, UUID reviewId) {
+    /**
+     * update review
+     *
+     * @author tt0411
+     * @param reviewUp
+     * @param reviewId
+     * @return updated review with new content and evaluate
+     */
+    public ReviewDto updateReview(ReviewUpDto reviewUp, UUID reviewId) {
         reviewUp.setDate(new Date());
+        ReviewEntity oldReview = reviewRepo.findFirstByReviewId(reviewId);
         ReviewEntity reviewEntity = reviewMapper.fromReUpDtoToReEntity(reviewUp);
         reviewEntity.setReviewId(reviewId);
+        //check null
+        if(reviewEntity.getEvaluate()==null) throw new IllegalArgumentException ("Evaluate must not be null");
+
+        reviewEntity.setReviewId(reviewId);
+        reviewEntity.setUserId(oldReview.getUserId());
+        reviewEntity.setParentId(oldReview.getParentId());
+        reviewEntity.setParentType(oldReview.getParentType());
         ReviewEntity returnReview =reviewRepo.save(reviewEntity);
-        return reviewMapper.toReUpDto(returnReview);
+        return reviewMapper.toReDto(returnReview);
     }
 
+    /**
+     * Get review
+     *
+     * @author tt0411
+     * @param reviewId
+     * @return a review
+     */
     public ReviewDto getById(UUID reviewId) {
         ReviewEntity reviewEntity = reviewRepo.findFirstByReviewId(reviewId);
         if(reviewEntity != null){
@@ -47,7 +79,12 @@ public class ReviewService implements IReviewService {
         return null;
     }
 
-
+    /**
+     * list review
+     *
+     * @author tt0411
+     * @return list review
+     */
     public List <ReviewDto> listAll(){
         List<ReviewEntity> reviews = reviewRepo.findAll();
         if( reviews.size()>0){
@@ -56,7 +93,13 @@ public class ReviewService implements IReviewService {
         return new ArrayList<>();
     }
 
-    @Override
+    /**
+     * delete a review
+     *
+     * @author tt0411
+     * @param reviewId
+     * @return status 200 OK
+     */
     public boolean delete(UUID reviewId) {
         ReviewEntity reviewEntity=reviewRepo.findFirstByReviewId(reviewId);
         if(reviewEntity != null){

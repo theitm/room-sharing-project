@@ -1,5 +1,6 @@
 package tma.interns.roomsharing.dto.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import tma.interns.roomsharing.enumration.UserRole;
 import java.util.Date;

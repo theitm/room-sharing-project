@@ -31,59 +31,50 @@ public class UserController {
         try {
             List<UserBasicDto> users = userService.listAll();
             return new ResponseEntity<>(users, HttpStatus.OK);
-        }
-       catch (NoSuchElementException ex) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }catch (NoSuchElementException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @GetMapping("/user/{user_id}")
-    public ResponseEntity<UserBasicDto> get(@PathVariable UUID user_id) {
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<UserBasicDto> get(@PathVariable UUID userId) {
         try {
-            UserBasicDto user = userService.getById(user_id);
+            UserBasicDto user = userService.getById(userId);
             return new ResponseEntity<>(user, HttpStatus.OK);
-        }
-        catch (NoSuchElementException ex) {
+        } catch (NoSuchElementException ex) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/user")
-    public  ResponseEntity<UserCreateDto> create(@RequestBody UserCreateDto newUser) {
+    public  ResponseEntity<UserBasicDto> create(@RequestBody UserCreateDto newUser) throws Exception {
         try {
-            UserCreateDto userReturn = userService.createUser(newUser);
+            UserBasicDto userReturn = userService.createUser(newUser);
             return new ResponseEntity<>(userReturn,HttpStatus.OK);
-        }
-        catch (NoSuchElementException ex) {
+        } catch (NoSuchElementException ex) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @PutMapping("/user/{user_id}")
-    public ResponseEntity<UserBasicDto> update(@RequestBody UserCreateDto user, @PathVariable UUID user_id) {
+    @PutMapping("/user/{userId}")
+    public ResponseEntity<UserBasicDto> update(@RequestBody UserBasicDto user, @PathVariable UUID userId) throws Exception {
         try {
-            UserBasicDto userDto = userService.updateUser(user,user_id);
-            return new ResponseEntity<>(userDto,HttpStatus.OK);
-        }
-        catch (NoSuchElementException ex) {
+            UserBasicDto userDto = userService.updateUser(user,userId);
+            return new ResponseEntity<>(userDto, HttpStatus.OK);
+        } catch (NoSuchElementException ex) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/user/{user_id}")
-    public ResponseEntity<UserBasicDto> delete(@PathVariable UUID user_id) {
+    @DeleteMapping("/user/{userId}")
+    public ResponseEntity<HttpStatus> delete(@PathVariable UUID userId) {
         try {
-            if(userService.delete(user_id)){
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
-            else{
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
+            userService.delete(userId);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception ex) {
-            throw ex;
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequestDto authenticationRequestDto) throws Exception {

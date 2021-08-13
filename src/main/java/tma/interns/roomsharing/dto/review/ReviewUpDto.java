@@ -1,5 +1,6 @@
 package tma.interns.roomsharing.dto.review;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
