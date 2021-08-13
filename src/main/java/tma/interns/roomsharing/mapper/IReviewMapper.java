@@ -13,5 +13,4 @@ public interface IReviewMapper {
     ReviewDto toReDto (ReviewEntity reviewEntity);
     List<ReviewDto> toReviewDto(List<ReviewEntity> reviews);
     ReviewEntity fromReUpDtoToReEntity (ReviewUpDto upDto);
-    ReviewUpDto toReUpDto (ReviewEntity reviewEntity);
 }

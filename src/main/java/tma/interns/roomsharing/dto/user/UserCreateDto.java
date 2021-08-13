@@ -2,6 +2,7 @@ package tma.interns.roomsharing.dto.user;
 
 import lombok.Data;
 import tma.interns.roomsharing.enumration.UserRole;
+
 import java.util.Date;
 
 @Data

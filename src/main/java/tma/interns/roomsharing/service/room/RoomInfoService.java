@@ -8,7 +8,7 @@ import tma.interns.roomsharing.dto.room.RoomInfoDetailDto;
 import tma.interns.roomsharing.dto.room.RoomInfoCreateDto;
 import tma.interns.roomsharing.entity.RoomInfoEntity;
 import tma.interns.roomsharing.enumration.FileType;
-import tma.interns.roomsharing.enumration.ParentType;
+import tma.interns.roomsharing.enumration.FileParentType;
 import tma.interns.roomsharing.mapper.IRoomInfoMapper;
 import tma.interns.roomsharing.repository.RoomInfoRepository;
 import tma.interns.roomsharing.service.file.FileService;
@@ -50,7 +50,7 @@ public class RoomInfoService implements IRoomInfoService {
         if(roomInfoEntity != null) {
             RoomInfoDetailDto result = roomMapper.toDetailDto(roomInfoEntity);
             //Get list file of this room
-            List<FileDto> listFiles = fileService.getByParentTypeAndParentId(ParentType.Room.getValue(), roomId);
+            List<FileDto> listFiles = fileService.getByParentTypeAndParentId(FileParentType.Room.getValue(), roomId);
             result.setFiles(listFiles);
             return result;
         } else {
@@ -63,7 +63,7 @@ public class RoomInfoService implements IRoomInfoService {
         if(roomInfoEntity != null){
             roomRepo.deleteByRoomId(roomId);
             //Get list file of this room
-            fileService.deleteByParentTypeAndParentId(ParentType.Room.getValue(), roomId);
+            fileService.deleteByParentTypeAndParentId(FileParentType.Room.getValue(), roomId);
             return true;
         }
         return false;
@@ -77,9 +77,9 @@ public class RoomInfoService implements IRoomInfoService {
             throw new Exception ("");
         RoomInfoEntity returnRoom = roomRepo.saveAndFlush(roomInfoEntity);
         //Update files
-        fileService.deleteByParentTypeAndParentId(ParentType.Room.getValue(), roomId);
+        fileService.deleteByParentTypeAndParentId(FileParentType.Room.getValue(), roomId);
         dto.getFiles().forEach((file) -> {
-            file.setParentType(ParentType.Room.getValue());
+            file.setParentType(FileParentType.Room.getValue());
             file.setParentId(returnRoom.getRoomId());
             file.setType(FileType.Image);
             fileService.createFile(file);
@@ -96,7 +96,7 @@ public class RoomInfoService implements IRoomInfoService {
             throw new Exception("");
         RoomInfoEntity returnRoom = roomRepo.save(roomInfoEntity);
         rooms.getFiles().forEach((file) -> {
-            file.setParentType(ParentType.Room.getValue());
+            file.setParentType(FileParentType.Room.getValue());
             file.setParentId(returnRoom.getRoomId());
             file.setType(FileType.Image);
             fileService.createFile(file);

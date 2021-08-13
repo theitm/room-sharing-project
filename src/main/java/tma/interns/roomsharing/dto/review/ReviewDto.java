@@ -11,4 +11,6 @@ public class ReviewDto {
     private String content;
     private Date date;
     private Integer evaluate;
+    private int parentType;
+    private UUID parentId;
 }

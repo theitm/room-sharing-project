@@ -1,6 +1,6 @@
 package tma.interns.roomsharing.enumration;
 
-public enum ParentType
+public enum FileParentType
 {
     Room("room",1),
     Review("review",2),
@@ -9,7 +9,7 @@ public enum ParentType
    private final String key;
    private final Integer value;
 
-    ParentType(String key, Integer value) {
+    FileParentType(String key, Integer value) {
         this.key = key;
         this.value = value;
     }

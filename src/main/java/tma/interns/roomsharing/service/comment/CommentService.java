@@ -23,12 +23,16 @@ public class CommentService implements ICommentService{
     @Override
     public CommentDto createComment (CommentDto comment){
         CommentEntity commentEntity = commentMapper.fromCreateToEntity(comment);
+        if(commentEntity.getContent()==null)
+            throw new IllegalArgumentException("Content must not be null");
         CommentEntity returnComment = commentRepo.save(commentEntity);
         return commentMapper.toBasicDto(returnComment);
     }
     @Override
     public CommentDto updateComment (CommentDto commentDto, UUID commentID){
         CommentEntity commentEntity = commentMapper.fromBasicToEntity(commentDto);
+        if(commentEntity.getContent()==null)
+            throw new IllegalArgumentException("Content must not be null");
         commentEntity.setCommentId(commentID);
         CommentEntity returnComment = commentRepo.save(commentEntity);
         return commentMapper.toBasicDto(returnComment);

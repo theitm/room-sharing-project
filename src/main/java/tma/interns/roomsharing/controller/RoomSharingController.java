@@ -30,8 +30,6 @@ public class RoomSharingController {
             return new ResponseEntity<>(created, HttpStatus.OK);
         } catch (NoSuchElementException ex) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (Exception ex2) {
-            throw ex2;
         }
     }
 
@@ -42,8 +40,6 @@ public class RoomSharingController {
             return new ResponseEntity<>(joined, HttpStatus.OK);
         } catch (NoSuchElementException ex) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (Exception ex2) {
-            throw ex2;
         }
     }
 

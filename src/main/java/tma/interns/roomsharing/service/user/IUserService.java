@@ -11,10 +11,10 @@ import java.util.UUID;
 
 public interface IUserService {
 
-    UserCreateDto createUser(UserCreateDto user);
-    UserBasicDto getById(UUID user_id);
-    boolean delete(UUID user_id);
-    UserBasicDto updateUser(UserCreateDto dto, UUID userId);
+    UserBasicDto createUser(UserCreateDto user) throws Exception;
+    UserBasicDto getById(UUID userId);
+    boolean delete(UUID userId);
+    UserBasicDto updateUser(UserBasicDto dto, UUID userId) throws Exception;
     List<UserBasicDto> listAll();
     UserInfoDto login(AuthenticationRequestDto authenticationRequestDto);
     UserDetails loadUserByUsername(String userName);

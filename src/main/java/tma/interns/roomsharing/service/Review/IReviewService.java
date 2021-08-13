@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IReviewService {
-    ReviewDto createReview (ReviewDto review);
-    ReviewUpDto updateReview (ReviewUpDto review, UUID reviewId);
+    ReviewDto createReview (ReviewDto review) throws Exception;
+    ReviewDto updateReview (ReviewUpDto review, UUID reviewId) throws Exception;
     ReviewDto getById (UUID reviewId);
     List<ReviewDto> listAll();
     boolean delete (UUID reviewId);

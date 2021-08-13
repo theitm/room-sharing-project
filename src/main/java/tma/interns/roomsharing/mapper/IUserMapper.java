@@ -11,8 +11,8 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface IUserMapper {
     UserEntity fromCreateToEntity(UserCreateDto dto);
+    UserEntity fromBasicToEntity(UserBasicDto dto);
     UserBasicDto toBasicDto(UserEntity userEntity);
-    UserCreateDto toCreateDto(UserEntity userEntity);
     UserInfoDto toInfoDto(UserEntity userEntity);
     List<UserBasicDto> toBasicDtos(List<UserEntity> users);
 }
