@@ -1,7 +1,5 @@
 package tma.interns.roomsharing.dto.comment;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 import java.util.UUID;
 
