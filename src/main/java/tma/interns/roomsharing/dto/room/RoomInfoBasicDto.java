@@ -28,7 +28,7 @@ public class RoomInfoBasicDto {
     private String roomDescribe;
     @Enumerated(EnumType.STRING)
     private StatusType statusHired;
-    @JsonFormat(pattern="yyyy-MM-dd@HH:mm:ss.SSSZ")
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
     private Date date;
     private String title;
     private UserBasicDto user;
