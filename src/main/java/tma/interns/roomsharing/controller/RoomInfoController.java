@@ -30,7 +30,7 @@ public class RoomInfoController {
         }
     }
     @PostMapping("/room")
-    public  ResponseEntity<RoomInfoDetailDto> create(@RequestBody RoomInfoCreateDto newRoomInfo) {
+    public  ResponseEntity<RoomInfoDetailDto> create(@RequestBody RoomInfoCreateDto newRoomInfo) throws Exception {
         try {
             RoomInfoDetailDto roomInfoReturn = roomInfoService.createRoomInfo(newRoomInfo);
             return new ResponseEntity<>(roomInfoReturn,HttpStatus.OK);
@@ -50,7 +50,7 @@ public class RoomInfoController {
         }
     }
     @PutMapping("/room/{roomId}")
-    public ResponseEntity<RoomInfoDetailDto> update(@RequestBody RoomInfoDetailDto room, @PathVariable UUID roomId) {
+    public ResponseEntity<RoomInfoDetailDto> update(@RequestBody RoomInfoDetailDto room, @PathVariable UUID roomId) throws Exception {
         try {
             RoomInfoDetailDto roomInfoDto = roomInfoService.updateRoomInfo(room,roomId);
             return new ResponseEntity<>(roomInfoDto,HttpStatus.OK);

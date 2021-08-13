@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface IRoomInfoService {
     RoomInfoDetailDto getById(UUID roomId);
     boolean delete(UUID room_id);
-    RoomInfoDetailDto updateRoomInfo (RoomInfoDetailDto dto, UUID roomId);
+    RoomInfoDetailDto updateRoomInfo (RoomInfoDetailDto dto, UUID roomId) throws Exception;
     List<RoomInfoBasicDto> listAll();
-    RoomInfoDetailDto createRoomInfo(RoomInfoCreateDto newRoomInfo);
+    RoomInfoDetailDto createRoomInfo(RoomInfoCreateDto newRoomInfo) throws Exception;
 }

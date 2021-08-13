@@ -55,11 +55,13 @@ public class RoomInfoEntity {
 
     private String roomDescribe;
 
+    private String title;
+
     @Column(name= "statusHired")
     @Enumerated(EnumType.STRING)
     private StatusType statusHired;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
     private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER)
