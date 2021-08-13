@@ -28,7 +28,10 @@ public class RoomInfoBasicDto {
     private String roomDescribe;
     @Enumerated(EnumType.STRING)
     private StatusType statusHired;
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd@HH:mm:ss.SSSZ")
     private Date date;
+    private String title;
     private UserBasicDto user;
+
+    private List<FileDto> files;
 }

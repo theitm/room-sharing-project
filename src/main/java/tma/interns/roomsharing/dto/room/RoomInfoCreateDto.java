@@ -26,5 +26,6 @@ public class RoomInfoCreateDto {
     @Enumerated(EnumType.STRING)
     private StatusType statusHired;
     private Date date;
+    private String title;
     private List<FileDto> files;
 }

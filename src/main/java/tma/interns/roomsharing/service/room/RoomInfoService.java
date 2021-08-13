@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+
 @Service
 @Transactional
 public class RoomInfoService implements IRoomInfoService {
@@ -35,8 +36,10 @@ public class RoomInfoService implements IRoomInfoService {
         this.roomMapper = roomMapper;
         this.fileService = fileService;
     }
+
     public List<RoomInfoBasicDto> listAll() {
         List<RoomInfoEntity> roomInfo = roomRepo.findAll();
+//        List<FileDto> listFiles = fileService.
         if(roomInfo.size() > 0){
             return roomMapper.toBasicDtos(roomInfo);
         }
@@ -65,9 +68,13 @@ public class RoomInfoService implements IRoomInfoService {
         }
         return false;
     }
-    public RoomInfoDetailDto updateRoomInfo (RoomInfoDetailDto dto, UUID roomId){
+    public RoomInfoDetailDto updateRoomInfo (RoomInfoDetailDto dto, UUID roomId) throws Exception {
         RoomInfoEntity roomInfoEntity = roomMapper.fromBasicToEntity(dto);
         roomInfoEntity.setRoomId(roomId);
+        if(roomInfoEntity.getAcreage()==null||roomInfoEntity.getAddress()==null||roomInfoEntity.getProvinceId()==null||
+                roomInfoEntity.getDistrictId()==null||roomInfoEntity.getWardId()==null||roomInfoEntity.getRoomDescribe()==null||
+                roomInfoEntity.getRoomPrice()==null||roomInfoEntity.getStatusHired()==null)
+            throw new Exception ("");
         RoomInfoEntity returnRoom = roomRepo.saveAndFlush(roomInfoEntity);
         //Update files
         fileService.deleteByParentTypeAndParentId(ParentType.Room.getValue(), roomId);
@@ -80,9 +87,13 @@ public class RoomInfoService implements IRoomInfoService {
         return roomMapper.toDetailDto(returnRoom);
     }
     @Override
-    public RoomInfoDetailDto createRoomInfo(RoomInfoCreateDto rooms) {
+    public RoomInfoDetailDto createRoomInfo(RoomInfoCreateDto rooms) throws Exception {
         rooms.setDate((new Date()));
         RoomInfoEntity roomInfoEntity = roomMapper.fromCreateToEntity(rooms);
+        if (roomInfoEntity.getAcreage() == null || roomInfoEntity.getAddress() == null || roomInfoEntity.getProvinceId() == null ||
+                roomInfoEntity.getDistrictId() == null || roomInfoEntity.getWardId() == null || roomInfoEntity.getRoomDescribe() == null ||
+                roomInfoEntity.getRoomPrice() == null || roomInfoEntity.getStatusHired() == null)
+            throw new Exception("");
         RoomInfoEntity returnRoom = roomRepo.save(roomInfoEntity);
         rooms.getFiles().forEach((file) -> {
             file.setParentType(ParentType.Room.getValue());
