@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tma.interns.roomsharing.dto.file.FileDto;
 import tma.interns.roomsharing.dto.room.RoomInfoBasicDto;
-import tma.interns.roomsharing.dto.room.RoomInfoDetailDto;
 import tma.interns.roomsharing.dto.room.RoomInfoCreateDto;
+import tma.interns.roomsharing.dto.room.RoomInfoDetailDto;
 import tma.interns.roomsharing.entity.RoomInfoEntity;
-import tma.interns.roomsharing.enumration.FileType;
 import tma.interns.roomsharing.enumration.FileParentType;
+import tma.interns.roomsharing.enumration.FileType;
 import tma.interns.roomsharing.mapper.IRoomInfoMapper;
 import tma.interns.roomsharing.repository.RoomInfoRepository;
 import tma.interns.roomsharing.service.file.FileService;
@@ -38,22 +38,25 @@ public class RoomInfoService implements IRoomInfoService {
     }
 
     public List<RoomInfoBasicDto> listAll() {
-        List<RoomInfoEntity> roomInfo = roomRepo.findAll();
-//        List<FileDto> listFiles = fileService.
-        if(roomInfo.size() > 0){
-            return roomMapper.toBasicDtos(roomInfo);
+            List<RoomInfoEntity> listRoom = roomRepo.findAll();
+            List<RoomInfoBasicDto> roomInfoBasicDtos = new ArrayList<>();
+            for (RoomInfoEntity room : listRoom) {
+                RoomInfoBasicDto roomInfoBasicDto = roomMapper.toBasicDto(room);
+                roomInfoBasicDto.setFiles(
+                        fileService.getByParentTypeAndParentId(FileParentType.Room.getValue(), room.getRoomId()));
+                roomInfoBasicDtos.add(roomInfoBasicDto);
+            }
+        return roomInfoBasicDtos;
         }
-        return new ArrayList<>();
-    }
     public RoomInfoDetailDto getById(UUID roomId){
         RoomInfoEntity roomInfoEntity = roomRepo.findFirstByRoomId(roomId);
         if(roomInfoEntity != null) {
             RoomInfoDetailDto result = roomMapper.toDetailDto(roomInfoEntity);
-            //Get list file of this room
             List<FileDto> listFiles = fileService.getByParentTypeAndParentId(FileParentType.Room.getValue(), roomId);
             result.setFiles(listFiles);
             return result;
-        } else {
+        }
+        else {
             return null;
         }
     }
@@ -62,7 +65,7 @@ public class RoomInfoService implements IRoomInfoService {
         RoomInfoEntity roomInfoEntity = roomRepo.findFirstByRoomId(roomId);
         if(roomInfoEntity != null){
             roomRepo.deleteByRoomId(roomId);
-            //Get list file of this room
+            fileService.deleteByParentTypeAndParentId(FileParentType.Room.getValue(), roomId);
             fileService.deleteByParentTypeAndParentId(FileParentType.Room.getValue(), roomId);
             return true;
         }
@@ -76,7 +79,7 @@ public class RoomInfoService implements IRoomInfoService {
                 roomInfoEntity.getRoomPrice()==null||roomInfoEntity.getStatusHired()==null)
             throw new Exception ("");
         RoomInfoEntity returnRoom = roomRepo.saveAndFlush(roomInfoEntity);
-        //Update files
+        fileService.deleteByParentTypeAndParentId(FileParentType.Room.getValue(), roomId);
         fileService.deleteByParentTypeAndParentId(FileParentType.Room.getValue(), roomId);
         dto.getFiles().forEach((file) -> {
             file.setParentType(FileParentType.Room.getValue());
