@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import tma.interns.roomsharing.dto.room.SearchDto;
+import tma.interns.roomsharing.dto.room.SearchRoomDto;
 import tma.interns.roomsharing.entity.RoomInfoEntity;
 
 import java.util.List;
@@ -25,6 +25,5 @@ public interface RoomInfoRepository extends JpaRepository<RoomInfoEntity, UUID> 
             " AND (:#{#search.toRoomPrice} is null OR u.roomPrice <= :#{#search.toRoomPrice})"+
             " AND (:#{#search.getValueStatusHired()} is null OR u.statusHired = :#{#search.getValueStatusHired()})"
     )
-    List<RoomInfoEntity> findRoomInfo(@Param("search") SearchDto searchDto);
-
+    List<RoomInfoEntity> findRoomInfo(@Param("search") SearchRoomDto searchRoomDto);
 }
