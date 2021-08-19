@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Data
-public class SearchDto {
+public class SearchRoomDto {
     private UUID provinceId;
     private UUID districtId;
     private UUID wardId;

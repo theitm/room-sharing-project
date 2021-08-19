@@ -5,9 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tma.interns.roomsharing.dto.room.RoomInfoBasicDto;
-import tma.interns.roomsharing.dto.room.RoomInfoDetailDto;
 import tma.interns.roomsharing.dto.room.RoomInfoCreateDto;
-import tma.interns.roomsharing.dto.room.SearchDto;
+import tma.interns.roomsharing.dto.room.RoomInfoDetailDto;
+import tma.interns.roomsharing.dto.room.SearchRoomDto;
 import tma.interns.roomsharing.entity.RoomInfoEntity;
 import tma.interns.roomsharing.repository.RoomInfoRepository;
 import tma.interns.roomsharing.service.room.IRoomInfoService;
@@ -80,8 +80,8 @@ public class RoomInfoController {
     @Autowired
     RoomInfoRepository roomInfoRepository;
     @PostMapping("/search")
-    public ResponseEntity<Object> search(@RequestBody SearchDto searchDto){
-        List<RoomInfoEntity> roomInfo = roomInfoRepository.findRoomInfo(searchDto).stream().sorted(searchDto.getSearchBy())
+    public ResponseEntity<Object> search(@RequestBody SearchRoomDto searchRoomDto){
+        List<RoomInfoEntity> roomInfo = roomInfoRepository.findRoomInfo(searchRoomDto).stream().sorted(searchRoomDto.getSearchBy())
                 .collect(Collectors.toList());
         return ResponseEntity.ok(roomInfo);
 
