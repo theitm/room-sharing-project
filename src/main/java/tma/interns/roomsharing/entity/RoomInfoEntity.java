@@ -57,7 +57,7 @@ public class RoomInfoEntity {
 
     private String title;
 
-    @Column(name= "statusHired")
+    @Column(name= "status")
     @Enumerated(EnumType.STRING)
     private StatusType statusHired;
 
