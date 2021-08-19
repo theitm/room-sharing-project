@@ -7,6 +7,7 @@ import tma.interns.roomsharing.entity.DistrictEntity;
 import tma.interns.roomsharing.repository.DistrictRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class DistrictService implements IDistrictService {
@@ -23,7 +24,7 @@ public class DistrictService implements IDistrictService {
     public void save(DistrictEntity districtEntity){
         districtRepo.save(districtEntity);
     }
-    public DistrictEntity get(String districs_id){
+    public DistrictEntity get(UUID districs_id){
         return districtRepo.findById(districs_id).get();
     }
 }
