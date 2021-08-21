@@ -37,6 +37,12 @@ public class RoomInfoService implements IRoomInfoService {
         this.fileService = fileService;
     }
 
+    /**
+     * list All RoomInfo
+     *
+     * @author hienle
+     * @return
+     */
     public List<RoomInfoBasicDto> listAll() {
             List<RoomInfoEntity> listRoom = roomRepo.findAll();
             List<RoomInfoBasicDto> roomInfoBasicDtos = new ArrayList<>();
@@ -48,6 +54,14 @@ public class RoomInfoService implements IRoomInfoService {
             }
         return roomInfoBasicDtos;
         }
+
+    /**
+     * get By roomId
+     *
+     * @author hienle
+     * @param roomId
+     * @return roomInfo by roomId
+     */
     public RoomInfoDetailDto getById(UUID roomId){
         RoomInfoEntity roomInfoEntity = roomRepo.findFirstByRoomId(roomId);
         if(roomInfoEntity != null) {
@@ -61,6 +75,13 @@ public class RoomInfoService implements IRoomInfoService {
         }
     }
 
+    /**
+     * delete by roomId
+     *
+     * @author hienle
+     * @param roomId
+     * @return status 200
+     */
     public boolean delete(UUID roomId){
         RoomInfoEntity roomInfoEntity = roomRepo.findFirstByRoomId(roomId);
         if(roomInfoEntity != null){
@@ -71,6 +92,16 @@ public class RoomInfoService implements IRoomInfoService {
         }
         return false;
     }
+
+    /**
+     * update RoomInfo by roomId
+     *
+     * @author hienle
+     * @param dto
+     * @param roomId
+     * @return new roomInfo
+     * @throws Exception
+     */
     public RoomInfoDetailDto updateRoomInfo (RoomInfoDetailDto dto, UUID roomId) throws Exception {
         RoomInfoEntity roomInfoEntity = roomMapper.fromBasicToEntity(dto);
         roomInfoEntity.setRoomId(roomId);
@@ -89,6 +120,15 @@ public class RoomInfoService implements IRoomInfoService {
         });
         return roomMapper.toDetailDto(returnRoom);
     }
+
+    /**
+     * create RoomInfo
+     *
+     * @author hienle
+     * @param rooms
+     * @return roomInfo
+     * @throws Exception
+     */
     @Override
     public RoomInfoDetailDto createRoomInfo(RoomInfoCreateDto rooms) throws Exception {
         rooms.setDate((new Date()));

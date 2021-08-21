@@ -38,12 +38,12 @@ public class RoomSharingService implements IRoomSharingService{
      */
     public RoomSharingDto newRoomSharing(RoomSharingDto roomSharing) throws Exception {
         RoomSharingEntity roomSharingEntity = roomSharingMapper.fromSharingDtoToEntity(roomSharing);
+        roomSharingEntity = roomSharingRepo.save(roomSharingEntity);
         roomShareDetailService.createDetail(RoomShareCreateDetailDto.builder().
                 roomSharingId(roomSharingEntity.getRoomSharingId()).role(ShareRole.Key).build());
         List<RoomShareDetailDto> details = roomShareDetailService.listAllByRoomSharingId(roomSharingEntity.getRoomSharingId());
         RoomSharingDto roomSharingDto =  roomSharingMapper.toRoomSharingDto(roomSharingEntity);
         roomSharingDto.setRoomShareDetails(details);
-        roomSharingEntity = roomSharingRepo.save(roomSharingEntity);
         return roomSharingDto;
     }
 
