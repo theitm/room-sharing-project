@@ -7,6 +7,7 @@ import tma.interns.roomsharing.entity.WardEntity;
 import tma.interns.roomsharing.repository.WardRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class WardService extends IWardService {
@@ -20,7 +21,7 @@ public class WardService extends IWardService {
     public void save(WardEntity wardEntity){
         repo.save(wardEntity);
     }
-    public WardEntity get(String Ward_id){
+    public WardEntity get(UUID Ward_id){
         return repo.findById(Ward_id).get();
     }
 }

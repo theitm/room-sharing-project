@@ -6,6 +6,7 @@ import tma.interns.roomsharing.entity.ProvinceEntity;
 import tma.interns.roomsharing.repository.ProvinceRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ProvinceService implements IProvinceService {
@@ -23,7 +24,7 @@ public class ProvinceService implements IProvinceService {
     public void save(ProvinceEntity provinceEntity){
         provinceRepo.save(provinceEntity);
     }
-    public ProvinceEntity get(String Province_id){
+    public ProvinceEntity get(UUID Province_id){
         return provinceRepo.findById(Province_id).get();
     }
 }

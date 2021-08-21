@@ -74,7 +74,7 @@ public class RoomShareDetailService implements IRoomShareDetailService{
     /**
      * join room sharing detail with capacity member
      *
-     * @author hienlee
+     * @author hienle
      * @param roomShareCreateDetailDto
      * @param roomSharingId
      * @return room sharing detail
